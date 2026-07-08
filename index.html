@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emme's Portfolio</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/typography.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    .weather-card {
+      max-width: 340px;
+      margin: 1.5rem auto 2rem;
+      padding: 1rem 1.25rem;
+      border: 1px solid #dbcdb7;
+      border-radius: 14px;
+      background: #f8f2e8; /* paper tone */
+      box-shadow: 0 8px 20px rgba(80, 62, 36, 0.08);
+      text-align: center;
+    }
+    .weather-title { margin-bottom: .5rem; color: #6b4423; }
+    .weather-emoji { font-size: 2rem; line-height: 1; }
+    .weather-temp { font-size: 2rem; color: #6b4423; font-weight: 600; }
+    .weather-desc { color: #7a6144; }
+    .weather-meta { font-size: .95rem; color: #8b6f47; margin-top: .4rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Emme's Portfolio</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="work.html">Work</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Designing with Passion</h2>
+      <p>Explore my work and discover my design philosophy.</p>
+    </section>
+
+    <section class="weather-card" id="weatherCard" aria-live="polite">
+      <h3 class="weather-title">Local Weather</h3>
+      <p id="weatherStatus">Finding your garden skies…</p>
+    </section>
+
+    <section class="portfolio-preview">
+      <h3>Featured Projects</h3>
+      <div class="project">
+        <img src="assets/project1.jpg" alt="Project 1" />
+        <h4>Project Title 1</h4>
+        <p>Short description of the project.</p>
+      </div>
+      <div class="project">
+        <img src="assets/project2.jpg" alt="Project 2" />
+        <h4>Project Title 2</h4>
+      </div>
+      <div class="project"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Emme. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      const statusEl = document.getElementById("weatherStatus");
+
+      function weatherCodeToUi(code) {
+        if (code === 0) return ["☀️", "Clear"];
+        if ([1, 2, 3].includes(code)) return ["⛅️", "Partly cloudy"];
+        if ([45, 48].includes(code)) return ["🌫️", "Fog"];
+        if ([51, 53, 55, 56, 57].includes(code)) return ["🌦️", "Drizzle"];
+        if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return ["🌧️", "Rain"];
+        if ([71, 73, 75, 77, 85, 86].includes(code)) return ["❄️", "Snow"];
+        if ([95, 96, 99].includes(code)) return ["⛈️", "Thunderstorm"];
+        return ["🌤️", "Weather"];
+      }
+
+      function showError(msg) {
+        statusEl.textContent = msg;
+      }
+
+      if (!navigator.geolocation) {
+        showError("Geolocation is not supported in this browser.");
+        return;
+      }
+
+      const loadingGuard = setTimeout(() => {
+        showError("Enable location to see your weather.");
+      }, 12000);
+
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          try {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            const url =
+              `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+              `&current=temperature_2m,weather_code&temperature_unit=fahrenheit`;
+
+            const res = await fetch(url);
+            if (!res.ok) throw new Error("Weather request failed");
+            const data = await res.json();
+
+            const temp = Math.round(data.current.temperature_2m);
+            const code = data.current.weather_code;
+            const [emoji, label] = weatherCodeToUi(code);
+
+            clearTimeout(loadingGuard);
+            statusEl.innerHTML = `
+              <div class="weather-emoji">${emoji}</div>
+              <div class="weather-temp">${temp}&deg;F</div>
+              <div class="weather-desc">${label}</div>
+              <div class="weather-meta">Based on your current location</div>
+            `;
+          } catch {
+            clearTimeout(loadingGuard);
+            showError("Could not load weather right now.");
+          }
+        },
+        (error) => {
+          clearTimeout(loadingGuard);
+          if (error.code === error.PERMISSION_DENIED) {
+            showError("Enable location to see your weather.");
+          } else if (error.code === error.TIMEOUT) {
+            showError("Location timed out. Please try again.");
+          } else {
+            showError("Could not access your location right now.");
+          }
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+      );
+    })();
+  </script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

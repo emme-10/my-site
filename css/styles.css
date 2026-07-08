@@ -1,0 +1,21 @@
+body {
+    background-color: #faf8f3;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(226, 198, 163, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(168, 149, 123, 0.08) 0%, transparent 50%);
+}
+
+header {
+    border-bottom: 2px solid #d4c4b0;
+    padding: 2em 0;
+}
+
+nav a {
+    margin-right: 2em;
+    font-size: 1.1em;
+}
+
+.garden-accent {
+    color: #9b7653;
+    font-style: italic;
+}
