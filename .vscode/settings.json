@@ -1,3 +1,4 @@
 {
-  "liveServer.settings.root": "/emme-portfolio"
+  "liveServer.settings.root": "/emme-portfolio",
+  "liveServer.settings.port": 5501
 }
