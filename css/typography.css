@@ -1,59 +1,105 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Oxygen+Mono&display=swap');
+
+:root {
+  --font-main: "Instrument Sans", sans-serif;
+  --font-accent: "Oxygen Mono", monospace;
+}
 
 body {
-    font-family: 'EB Garamond', serif;
-    line-height: 1.8;
-    color: #4a5a3a;
-    background-color: #faf8f3;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.8;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'EB Garamond', serif;
-    margin: 0;
-    padding: 0;
-    color: #6b4423;
-}
-
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-}
-
-h2 {
-    font-size: 2em;
-    margin-bottom: 0.5em;
-    font-weight: 600;
-}
-
-h3 {
-    font-size: 1.75em;
-    margin-bottom: 0.5em;
-    font-weight: 600;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-main);
+  font-weight: 400;
+  margin: 0;
 }
 
 p {
-    font-size: 1em;
-    margin-bottom: 1em;
+  font-family: var(--font-main);
+  margin: 0 0 1em;
 }
 
 a {
-    color: #8b6f47;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  font-family: var(--font-main);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-a:hover {
-    color: #c9a876;
-    text-decoration: underline;
+header h1,
+.node-label-title,
+.node-card .name,
+.node-card .desc,
+.modal-title,
+.modal-desc,
+.modal-tag {
+  font-family: var(--font-main);
+  font-weight: 400;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.nav,
+.node-label-tags,
+.node-card .tag-pill,
+.modal-tag,
+.weather-title {
+  font-family: var(--font-accent);
+  text-transform: uppercase;
 }
 
-li {
-    margin-bottom: 0.5em;
+.node-label-title {
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.node-label-tags {
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+}
+
+.node-card .name {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.node-card .desc {
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.node-card .tag-pill {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+}
+
+.modal-title {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.modal-desc {
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.modal-tag {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.18em;
+}
+
+/* prevent global <p> margin from adding extra gaps inside cards */
+.node-card .name,
+.node-card .desc,
+.node-card .tag-pill,
+.modal-tag {
+  margin: 0;
 }
