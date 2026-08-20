@@ -83,6 +83,84 @@
     modal.setAttribute("aria-hidden", "true");
   }
 
+  function renderMobileStack() {
+    document.querySelector(".mobile-stack")?.remove();
+
+    const stack = document.createElement("section");
+    stack.className = "mobile-stack";
+    stack.setAttribute("aria-label", "Project portfolio");
+
+    projects.forEach((project, i) => {
+      const tagsText = toTagsText(project.tags);
+
+      const card = document.createElement("article");
+      card.className = "mobile-card";
+      card.style.transitionDelay = `${i * 80}ms`;
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", project.name);
+
+      const media = document.createElement("div");
+      media.className = "node-card-media";
+      media.setAttribute("aria-hidden", "true");
+      if (project.img) {
+        const img = document.createElement("img");
+        img.src = project.img;
+        img.alt = "";
+        img.className = "mobile-card-img";
+        media.appendChild(img);
+      }
+
+      const content = document.createElement("div");
+      content.className = "node-card-content";
+
+      const header = document.createElement("div");
+      header.className = "node-card-header";
+
+      const name = document.createElement("p");
+      name.className = "name";
+      name.textContent = project.name;
+
+      const pill = document.createElement("p");
+      pill.className = "tag-pill";
+      pill.textContent = tagsText;
+
+      const desc = document.createElement("p");
+      desc.className = "desc";
+      desc.textContent = project.desc;
+
+      header.appendChild(name);
+      header.appendChild(pill);
+      content.appendChild(header);
+      content.appendChild(desc);
+      card.appendChild(media);
+      card.appendChild(content);
+
+      card.addEventListener("click", () => openModal(project));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openModal(project);
+        }
+      });
+
+      stack.appendChild(card);
+    });
+
+    document.body.appendChild(stack);
+
+    // Animate cards in as they scroll into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("mobile-card--visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    stack.querySelectorAll(".mobile-card").forEach((c) => observer.observe(c));
+  }
+
   function renderNodes() {
     canvas.querySelectorAll(".node").forEach((node) => node.remove());
     document.querySelector(".node-card")?.remove();
@@ -185,6 +263,7 @@
   });
 
   renderNodes();
+  renderMobileStack();
 
   const connectionLayer = document.getElementById("connectionLayer");
 

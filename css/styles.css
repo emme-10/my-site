@@ -134,6 +134,7 @@ header {
   backdrop-filter: blur(18px);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   pointer-events: auto;
+  transition: background 380ms ease, backdrop-filter 380ms ease, box-shadow 380ms ease;
 }
 
 .nav-identity {
@@ -347,7 +348,8 @@ main#projectCanvas {
   margin-bottom: 16px;
 }
 
-.node-card .name {
+.node-card .name,
+.mobile-card .name {
   margin: 0;
   font-family: var(--font-main);
   font-size: 20px;
@@ -356,7 +358,8 @@ main#projectCanvas {
   color: #fff;
 }
 
-.node-card .desc {
+.node-card .desc,
+.mobile-card .desc {
   margin: 0;
   font-family: var(--font-main);
   font-size: 16px;
@@ -365,7 +368,8 @@ main#projectCanvas {
   color: rgba(255, 255, 255, 0.92);
 }
 
-.node-card .tag-pill {
+.node-card .tag-pill,
+.mobile-card .tag-pill {
   margin: 0;
   display: inline-block;
   padding: 8px 12px;
@@ -419,10 +423,32 @@ main#projectCanvas {
   background: rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(18px);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  transition: background 380ms ease, backdrop-filter 380ms ease, box-shadow 380ms ease;
 }
 
 #weatherStatus {
   margin: 0;
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.clock-widget {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 25;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  transition: background 380ms ease, backdrop-filter 380ms ease, box-shadow 380ms ease;
   font-family: var(--font-accent);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -560,7 +586,7 @@ body.page-about {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  max-width: 520px;
+  max-width: 420px;
   width: 100%;
   text-align: center;
 }
@@ -597,25 +623,191 @@ body.page-about {
   line-height: 1.75;
   color: var(--mist);
   margin-top: 8px;
+  text-align: left;
+}
+
+.about-link {
+  align-self: flex-start;
+  position: relative;
+  padding: 0;
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 280ms ease;
+}
+
+.about-link::before,
+.about-link::after {
+  position: absolute;
+  top: 50%;
+  font-family: var(--font-accent);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  filter: blur(4px) brightness(2);
+  transition: opacity 280ms ease, filter 280ms ease, transform 280ms ease;
+  pointer-events: none;
+}
+
+.about-link::before {
+  content: '[';
+  left: -10px;
+  transform: translateY(-50%) translateX(-4px);
+}
+
+.about-link::after {
+  content: ']';
+  right: -10px;
+  transform: translateY(-50%) translateX(4px);
+}
+
+.about-link:hover {
+  color: #fff;
+}
+
+.about-link:hover::before {
+  opacity: 1;
+  filter: blur(0) brightness(1);
+  transform: translateY(-50%) translateX(0);
+}
+
+.about-link:hover::after {
+  opacity: 1;
+  filter: blur(0) brightness(1);
+  transform: translateY(-50%) translateX(0);
+}
+
+/* =========================
+   Mobile project stack
+========================= */
+.mobile-stack {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  padding: 100px 16px 48px;
+  max-width: 500px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.mobile-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(9, 13, 30, 0.88);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 480ms ease, transform 480ms ease, box-shadow 200ms ease;
+}
+
+.mobile-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-card .node-card-media {
+  height: auto; /* let the img drive the height so ratio is preserved */
+}
+
+.mobile-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Fast press response overrides the slow entrance transition */
+.mobile-card:active {
+  transform: scale(0.97);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.26);
+  transition: transform 100ms ease, box-shadow 100ms ease;
 }
 
 @media (max-width: 720px) {
   header {
-    padding: 12px 16px;
+    padding: 10px 16px;
   }
 
-  .nav-separator,
-  .nav-pill ul {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  main#projectCanvas {
     display: none;
   }
 
+  .mobile-stack {
+    display: flex;
+  }
+
+  /* Darken nav + weather when scrolled over lighter card content */
+  .nav-pill.nav-scrolled {
+    background: rgba(8, 12, 28, 0.82);
+    backdrop-filter: blur(22px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.42);
+  }
+
+  .weather-card.card-scrolled {
+    background: rgba(8, 12, 28, 0.78);
+    backdrop-filter: blur(22px);
+  }
+
+  .clock-widget.card-scrolled {
+    background: rgba(8, 12, 28, 0.78);
+    backdrop-filter: blur(22px);
+  }
+
+  .clock-widget {
+    left: 10px;
+    bottom: 10px;
+  }
+
+  /* Compact pill: hide name, keep pic + separator + nav links */
+  .nav-name {
+    display: none;
+  }
+
+  .nav-pill {
+    gap: 8px;
+    padding: 8px 14px;
+  }
+
+  .nav-pill ul {
+    gap: 2px;
+  }
+
+  .nav-pill ul a {
+    font-size: 0.72rem;
+    padding: 0 7px;
+  }
+
+  /* Stack weather info vertically on narrow screens */
   .weather-card {
     right: 10px;
     bottom: 10px;
+    max-width: calc(100vw - 20px);
+    border-radius: 16px;
+  }
+
+  #weatherStatus {
+    white-space: normal;
+    max-width: 180px;
+    text-align: center;
+    line-height: 1.6;
   }
 
   .node-card {
     width: min(500px, calc(100vw - 32px));
+  }
+
+  .mobile-card .desc {
+    font-size: 14px;
+    line-height: 1.5;
   }
 }
 
@@ -634,14 +826,52 @@ body.page-about {
   fill: none;
   stroke: rgba(255, 255, 255, 0.95);
   stroke-linecap: round;
-  stroke-width: 3;
-  stroke-dasharray: 1 16;
+  stroke-width: 2;
+  stroke-dasharray: 0 14;
   opacity: 0.55;
   animation: dash-flow 1s linear infinite;
 }
 
 @keyframes dash-flow {
   to {
-    stroke-dashoffset: -13;
+    stroke-dashoffset: -14;
   }
+}
+
+/* =========================
+   Page transitions
+========================= */
+body {
+  animation: page-enter 550ms ease-out both;
+}
+
+body.page-exiting {
+  animation: page-exit 220ms ease-in forwards;
+  pointer-events: none;
+}
+
+/* Shimmer on html so it renders above body and isn't dimmed by body's opacity */
+html::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(160, 200, 255, 0.05);
+  pointer-events: none;
+  animation: page-shimmer 700ms ease-out both;
+}
+
+@keyframes page-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes page-exit {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes page-shimmer {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
 }
