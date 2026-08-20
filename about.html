@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Emme</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/typography.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Emme Enojado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Oxygen+Mono&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-    <header>
-      <h1><a href="index.html">Emme Enojado</a></h1>
-      <div class="header-right">
-        <nav aria-label="Main navigation">
-          <ul>
-            <li><a href="about.html">About</a></li>
-            <li><a href="mailto:emme.enojado@slalom.com">Contact Me</a></li>
-          </ul>
-        </nav>
+<body class="page-about">
+  <header>
+    <nav class="nav-pill" aria-label="Main navigation">
+      <a href="index.html" class="nav-identity">
         <img src="assets/profile.jpg" alt="Emme Enojado" class="profile-pic" />
-      </div>
-    </header>
-    <main>
-        <section>
-            <h2>Background</h2>
-            <p>Hi, I'm Emme, a passionate designer with a background in graphic design and user experience. I have a keen eye for aesthetics and a love for creating visually appealing and functional designs.</p>
-        </section>
-        <section>
-            <h2>Design Philosophy</h2>
-            <p>My design philosophy revolves around the idea that good design is not just about how it looks, but also how it works. I strive to create designs that are not only beautiful but also user-friendly and accessible.</p>
-        </section>
-        <section>
-            <h2>Personal Details</h2>
-            <p>When I'm not designing, you can find me exploring new art galleries, experimenting with photography, or enjoying a good book. I believe that inspiration can be found everywhere, and I draw from my experiences to inform my work.</p>
-        </section>
-    </main>
-    <footer>
-        <p>© 2023 Emme. All rights reserved.</p>
-    </footer>
-    <script src="js/main.js"></script>
+        <span class="nav-name">Emme Enojado</span>
+      </a>
+      <div class="nav-separator" aria-hidden="true"></div>
+      <ul>
+        <li><a href="index.html">Work</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="mailto:emme.enojado@slalom.com">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="about-main">
+    <div class="about-hero">
+      <img src="assets/profile.jpg" alt="Emme Enojado" class="about-photo" />
+      <p class="about-greeting">Hi! I'm Emme. </p>
+      <p class="about-tagline">Product Designer @ Slalom Consulting</p>
+      <p class="about-bio">For the past 5 years, I've delivered end-to-end solutions for 8 different clients from various industries, including finance, government, and more. By working in cross-capability teams of designers, engineers, and product owners, I lead through ambiguity and craft user-centric experiences that weave together business requirements and technological abilities.</p>
+    </div>
+  </main>
+
+  <section class="weather-card" id="weatherCard" aria-live="polite">
+    <p id="weatherStatus">Locating…</p>
+  </section>
+
+  <script src="js/weather.js"></script>
 </body>
 </html>
