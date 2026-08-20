@@ -1,11 +1,11 @@
 (function () {
   const projects = [
-    { name: "Project One", tags: ["Brand"], desc: "Placeholder description for Project One. Add your final copy later." },
-    { name: "Project Two", tags: ["Web"], desc: "Placeholder description for Project Two. Add your final copy later." },
-    { name: "Project Three", tags: ["UX"], desc: "Placeholder description for Project Three. Add your final copy later." },
-    { name: "Project Four", tags: ["Campaign"], desc: "Placeholder description for Project Four. Add your final copy later." },
-    { name: "Project Five", tags: ["Identity"], desc: "Placeholder description for Project Five. Add your final copy later." },
-    { name: "Project Six", tags: ["Motion"], desc: "Placeholder description for Project Six. Add your final copy later." }
+    { name: "Georgia Courts CMS",   tags: ["Government"],    img: "assets/GCMS_Portfolio Picture.jpeg",  desc: "Streamlining justice: Building a Court Case Management System for the State of Georgia" },
+    { name: "PD Event Registration",   tags: ["Education"],      img: "assets/ProfReg_Portfolio Picture.jpeg",  desc: "Empowering educators through simplified professional development registration" },
+    { name: "Benefits Administration", tags: ["Health & Benefits"],       img: "assets/HB_Portfolio Picture.jpeg",  desc: "Accelerating seamless health & benefits administration" },
+    { name: "Call Center Platform",  tags: ["Finance"], img: "assets/Call Center_Portfolio Picture.jpg",  desc: "Transforming the call center agent experience by designing a unified platform of agent tools" },
+    { name: "Internal Ops Tool",  tags: ["Finance"], img: "assets/Internal Ops_Portfolio Picture.jpeg",  desc: "Redesigning an internal bonus application & employee management tool" },
+    { name: "Risk Analyst Accelerator",   tags: ["Finance"],   img: "assets/Risk Analyst_Portfolio Picture.jpeg",  desc: "Improving risk analyst workflow efficiency" }
   ];
 
   const canvas = document.getElementById("projectCanvas");
@@ -25,8 +25,9 @@
   // Positions the shared fixed card relative to the viewport so it never clips.
   function positionCard(node, card) {
     const nodeRect = node.getBoundingClientRect();
-    const cardW = card.offsetWidth;
-    const cardH = card.offsetHeight;
+    const cardW = card.offsetWidth || card.scrollWidth;
+    // offsetHeight is 0 before first paint; scrollHeight always returns true content height.
+    const cardH = card.offsetHeight || card.scrollHeight;
     const gap = 8;
     const margin = 16;
 
@@ -139,6 +140,8 @@
         sharedCard.querySelector(".name").textContent = project.name;
         sharedCard.querySelector(".tag-pill").textContent = tagsText;
         sharedCard.querySelector(".desc").textContent = project.desc;
+        const media = sharedCard.querySelector(".node-card-media");
+        media.style.backgroundImage = project.img ? `url("${project.img}")` : "";
         positionCard(wrap, sharedCard);
         sharedCard.classList.add("node-card--visible");
         wrap.style.zIndex = "10";
