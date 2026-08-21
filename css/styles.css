@@ -769,19 +769,27 @@ body.page-about {
     line-height: 1.5;
   }
 
-  /* Compact pill: hide name, keep pic + separator + nav links */
+  /* Full-width pill: pin pic left, nav links right — eliminates overflow by design */
   .nav-name {
     display: none;
   }
 
   .nav-pill {
-    gap: 10px;
-    padding: 8px 14px;
-    max-width: calc(100vw - 24px);
+    left: 12px;
+    right: 12px;
+    transform: translateY(-50%);
+    width: auto;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 16px;
+  }
+
+  .nav-separator {
+    display: none;
   }
 
   .nav-pill ul {
-    gap: 1px;
+    gap: 4px;
   }
 
   .nav-pill ul a {
