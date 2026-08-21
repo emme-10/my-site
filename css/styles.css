@@ -778,14 +778,17 @@ body.page-about {
     gap: 6px;
     padding: 8px 12px;
     max-width: calc(100vw - 24px);
+    overflow: hidden;
   }
 
   .nav-pill ul {
     gap: 1px;
+    flex-shrink: 1;
+    min-width: 0;
   }
 
   .nav-pill ul a {
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     letter-spacing: 0.06em;
     padding: 0 5px;
   }
