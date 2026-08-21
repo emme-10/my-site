@@ -782,9 +782,6 @@ body.page-about {
 
   .nav-pill ul {
     gap: 1px;
-    flex-shrink: 1;
-    min-width: 0;
-    overflow: hidden;
   }
 
   .nav-pill ul a {
