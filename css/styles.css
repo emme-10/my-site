@@ -765,6 +765,8 @@ body.page-about {
   .clock-widget {
     left: 10px;
     bottom: 10px;
+    border-radius: 12px;
+    line-height: 1.5;
   }
 
   /* Compact pill: hide name, keep pic + separator + nav links */
@@ -773,17 +775,24 @@ body.page-about {
   }
 
   .nav-pill {
-    gap: 8px;
-    padding: 8px 14px;
+    gap: 6px;
+    padding: 8px 12px;
+    max-width: calc(100vw - 24px);
   }
 
   .nav-pill ul {
-    gap: 2px;
+    gap: 1px;
   }
 
   .nav-pill ul a {
-    font-size: 0.72rem;
-    padding: 0 7px;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    padding: 0 5px;
+  }
+
+  .profile-pic {
+    width: 32px;
+    height: 32px;
   }
 
   /* Stack weather info vertically on narrow screens */

@@ -18,7 +18,11 @@
     const hour  = pad(rawH % 12 || 12);
     const min   = pad(d.getMinutes());
     const sec   = pad(d.getSeconds());
-    el.textContent = `${month} ${day} \u00B7 ${hour}:${min}:${sec} ${ampm}`;
+    if (window.innerWidth <= 720) {
+      el.innerHTML = `${month} ${day}<br>${hour}:${min}:${sec} ${ampm}`;
+    } else {
+      el.textContent = `${month} ${day} \u00B7 ${hour}:${min}:${sec} ${ampm}`;
+    }
   }
 
   tick();
