@@ -775,20 +775,20 @@ body.page-about {
   }
 
   .nav-pill {
-    gap: 6px;
-    padding: 8px 12px;
+    gap: 10px;
+    padding: 8px 14px;
     max-width: calc(100vw - 24px);
-    overflow: hidden;
   }
 
   .nav-pill ul {
     gap: 1px;
     flex-shrink: 1;
     min-width: 0;
+    overflow: hidden;
   }
 
   .nav-pill ul a {
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     letter-spacing: 0.06em;
     padding: 0 5px;
   }
